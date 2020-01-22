@@ -1,5 +1,5 @@
 import React, {useState, useEffect } from "react";
-import {SafeAreaView, Text, AsyncStorage, Image, StyleSheet} from "react-native";
+import {SafeAreaView, Text, AsyncStorage, Image, StyleSheet,ScrollView} from "react-native";
 
 //SafeAreaView: permite que os componentes fiquem dentro das áreas visíveis 
 
@@ -20,8 +20,10 @@ export default function List() {
 return (
     <SafeAreaView style = {styles.container} >
         <Image style={styles.logo} source = {logo}/>
-
-        {techs.map(tech => <SpotList key={tech} tech={tech} />)}
+        
+        <ScrollView>
+            {techs.map(tech => <SpotList key={tech} tech={tech} />)}
+        </ScrollView>
     </SafeAreaView>
     ) 
 }
