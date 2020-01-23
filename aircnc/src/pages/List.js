@@ -1,5 +1,5 @@
 import React, {useState, useEffect } from "react";
-import {SafeAreaView, Text, AsyncStorage, Image, StyleSheet,ScrollView} from "react-native";
+import {SafeAreaView, AsyncStorage, Image, StyleSheet,ScrollView} from "react-native";
 
 //SafeAreaView: permite que os componentes fiquem dentro das áreas visíveis 
 

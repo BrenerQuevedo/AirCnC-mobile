@@ -1,8 +1,11 @@
 import React, { useEffect, useState} from 'react';
+import { withNavigation } from 'react-navigation';
 import {View, Text, StyleSheet, FlatList, Image, TouchableOpacity} from 'react-native';
 import api from "../services/api";
 
-export default function SpotList({ tech }) {
+//withNavigation: permite utilizar um componente que não seja uma página como ponto de navegação
+
+function SpotList({ tech, navigation }) {
     const [spots, setSpots] = useState([]);
 
     useEffect(() => {
@@ -16,6 +19,10 @@ export default function SpotList({ tech }) {
         loadSpots();
     }, []);
 
+//navegar para tela de reserva
+function handleNavigate(id) {
+    navigation.navigate('Book', {id});
+}
 
 return (
     <View style={StyleSheet.container}> 
@@ -35,7 +42,7 @@ return (
 
                     <Text styles={styles.price}> {item.price ? `R$${item.price}/dia`: "GRATUITO"} </Text>
                     
-                    <TouchableOpacity onPress={()=> {}} style ={styles.button}>
+                    <TouchableOpacity onPress={()=>(handleNavigate(item._id))} style ={styles.button}>
                         <Text style={styles.buttonText}> Solicitar reserva </Text>
                     </TouchableOpacity>
                 </View>
@@ -98,3 +105,5 @@ const styles = StyleSheet.create({
         fontSize: 15,
     },
 });
+
+export default withNavigation(SpotList);
