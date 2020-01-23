@@ -1,5 +1,5 @@
 import React, {useState} from "react";
-import {AsyncStorage, Text, TouchableOpacity,SafeAreaView,StyleSheet,TextInput} from "react-native";
+import {AsyncStorage, Text, TouchableOpacity,SafeAreaView,StyleSheet,TextInput, Alert} from "react-native";
 import api from '../services/api';
 
 
@@ -9,10 +9,21 @@ export default function Book({navigation}) {
 
 
     async function handleSubmit(){
-        const user_id = AsyncStorage.getItem('user');
+        const user_id = await AsyncStorage.getItem('user');
         
-        const response = api.post('/');
+        await api.post(`/spots/${id}/bookings`, {
+            date
+        }, {
+            headers: {user_id}
+        })
     
+        Alert.alert('solicitação de reserva enviada.');
+
+        navigation.navigate('List');
+    }
+
+    function handleCancel() {
+        navigation.navigate('List');
     }
 
     return (
@@ -33,7 +44,7 @@ export default function Book({navigation}) {
                 <Text style ={styles.buttonText}>Solicitar reserva</Text>
             </TouchableOpacity>
 
-            <TouchableOpacity onPress={handleSubmit} style={[ styles.button, styles.cancelButton]}>
+            <TouchableOpacity onPress={handleCancel} style={[ styles.button, styles.cancelButton]}>
                 <Text style ={styles.buttonText}>Cancelar</Text>
             </TouchableOpacity>
 
